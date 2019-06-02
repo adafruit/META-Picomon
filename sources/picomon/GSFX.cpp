@@ -1,5 +1,6 @@
 #include "GSFX.h"
 #include <Gamebuino-Meta.h>
+#include "utility/Sound/Sound.h"
 
 GSFX::GSFX() : _handler(this)
 {
@@ -54,7 +55,9 @@ bool GSFX::Sound_Handler_GSFX::init()
     channel->total = NUM_SAMPLES;
     channel->last = false;
     channel->use = true;
+    channel->type = Gamebuino_Meta::Sound_Channel_Type::raw;
     channel->buffer = &_buffer[0];
+    Serial.printf("Amplitude %d & type %d\n", channel->amplitude, (uint8_t)channel->type);
 
     _current_fx_time = UINT32_MAX;
     _current_fx = {GSFX::WaveType::NOISE, 0xFFFF,-80,0,0,10000};
